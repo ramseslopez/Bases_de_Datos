@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.FBD.ControladorNosotros">
+   <children>
+      <ImageView fx:id="logo" fitHeight="246.0" fitWidth="318.0" layoutX="233.0" layoutY="77.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="24.0" layoutY="43.0" text="Nuestro equipo">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="tortillero" layoutX="23.0" layoutY="130.0" mnemonicParsing="false" onAction="#IrTortillero" text="Tortillero" />
+      <Button fx:id="parrillero" layoutX="23.0" layoutY="172.0" mnemonicParsing="false" onAction="#IrParrillero" text="Parrillero" />
+      <Button fx:id="mesero" layoutX="23.0" layoutY="216.0" mnemonicParsing="false" onAction="#IrMesero" text="Mesero" />
+      <Button fx:id="cajero" layoutX="23.0" layoutY="261.0" mnemonicParsing="false" onAction="#IrCajero" text="Cajero" />
+      <Button fx:id="repartidor" layoutX="23.0" layoutY="308.0" mnemonicParsing="false" onAction="#IrRepartidor" text="Repartidor" />
+      <Button fx:id="taquero" layoutX="23.0" layoutY="86.0" mnemonicParsing="false" onAction="#IrTaquero" text="Taquero" />
+      <Button fx:id="regresar" layoutX="21.0" layoutY="350.0" mnemonicParsing="false" onAction="#IrInicio" text="Regresar" />
+   </children>
+</AnchorPane>

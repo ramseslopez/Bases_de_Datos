@@ -1,0 +1,150 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left = 2.5cm, right = 2.5cm, top = 2.5cm, bottom = 2.5cm]{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+
+\author{Hernández Ferreiro Enrique Ehecatl \\
+        López Soto Ramses Antonio \\
+        Miguel Torres Eric Giovanni \\
+        Quintero Villeda Erik}
+
+\title{Práctica 10 \\
+       {\small Fudamentos de Bases de Datos}}
+
+\date{11 de noviembre de 2019}
+
+\begin{document}
+
+    \maketitle
+
+    \section*{Introducción} 
+
+        \subsection*{Objetivo}
+        Utilizar las consultas avanzadas (instrucciones GROUP BY y HAVING) para resolver las consultas solicitadas.
+    
+    \section*{Desarrollo}
+    Las consultas solicitadas son las siguientes:
+
+    \begin{enumerate}
+        \item El número de empleados que existen por cada puesto.
+
+            \begin{verbatim}
+SELECT titulo, COUNT(titulo) numEmpleados
+FROM Empleados
+GROUP BY titulo; 
+            \end{verbatim}
+
+        \item El número de empleados que tiene a su cargo cada empleado.
+        
+            \begin{verbatim}
+SELECT A.idEmpleado, COUNT(B.idEmpleado) numEmpladosACargo
+FROM Empleados A INNER JOIN Empleados B
+ON A.idEmpleado = B.idEmpleado
+GROUP BY A.idEmpleado
+ORDER BY A.idEmpleado;
+            \end{verbatim}
+
+        \item Nombre de la ciudades que tiene mas de un cliente.
+            
+            \begin{verbatim}
+SELECT ciudad
+FROM Clientes
+GROUP BY ciudad
+HAVING COUNT(idCliente) > 1;
+            \end{verbatim}
+
+        \item El total de productos por categoría con los que cuenta cada proveedor.
+        
+            \begin{verbatim}
+SELECT idProvedor, nombreCategoria, COUNT(Productos.idProducto) totalProductos
+FROM Pedidos INNER JOIN DetallesPedido
+ON Pedidos.idPedido = DetallesPedido.idPedido
+INNER JOIN Productos
+ON DetallesPedido.idProducto = Productos.idProducto
+INNER JOIN Categorias
+ON Productos.idCategoria = Categorias.idCategoria
+GROUP BY idProvedor, nombreCategoria;
+            \end{verbatim}
+
+        \item La compañía de envíos que mas pedidos ha despachado de la categoría 'Dairy Products'.
+        
+            \begin{verbatim}
+SELECT TOP (1) nombreCompania, COUNT(Pedidos.idPedido) AS numPedidos
+FROM CompaniasEnvio INNER JOIN Pedidos 
+ON CompaniasEnvio.idCompaniaEnvio = Pedidos.viaEnvio
+INNER JOIN DetallesPedido ON Pedidos.idPedido = DetallesPedido.idPedido
+INNER JOIN Productos ON DetallesPedido.idProducto = Productos.idProducto
+INNER JOIN Categorias ON Productos.idCategoria = Categorias.idCategoria
+WHERE nombreCategoria = 'Dairy Products'
+GROUP BY nombreCompania
+ORDER BY numPedidos DESC;
+            \end{verbatim}
+
+        \item La región que más empleados tiene.
+        
+            \begin{verbatim}
+SELECT TOP(1) descripcionRegion, COUNT(Empleados.idEmpleado) numEmpleados
+FROM Empleados INNER JOIN TerritoriosEmpleado 
+ON TerritoriosEmpleado.idEmpleado = Empleados.idEmpleado
+INNER JOIN Territorios 
+ON TerritoriosEmpleado.idTerritorio = Territorios.idTerritorio
+INNER JOIN Region ON Territorios.idRegion = Region.idRegion
+GROUP BY descripcionRegion
+ORDER BY numEmpleados DESC;
+            \end{verbatim}
+
+        \item Obtener el nombre de los clientes que han realizado los 10 pedidos más caros, ordenar el resultado por el pedido con mas valor.
+        
+            \begin{verbatim}
+SELECT TOP(10) nombreContacto
+FROM Clientes INNER JOIN Pedidos ON Clientes.idCliente = Pedidos.idCliente
+ORDER BY cargo DESC;
+            \end{verbatim}
+
+        \item Las ganancias por categorías que se han obtenido todos los proveedores.
+        
+            \begin{verbatim}
+SELECT idProvedor, nombreCategoria, SUM(precioUnitario) totalGanancias
+FROM Productos INNER JOIN Categorias 
+ON Productos.idCategoria = Categorias.idCategoria
+GROUP BY idProvedor, nombreCategoria
+ORDER BY idProvedor;
+            \end{verbatim}
+
+        \item El proveedor con los que cuenta con mas productos descontinuados.
+        
+            \begin{verbatim}
+SELECT TOP(1) idProvedor, COUNT(descontinuado) AS numDescontinuados
+FROM Productos
+WHERE descontinuado = 1
+GROUP BY idProvedor
+ORDER BY numDescontinuados DESC;
+            \end{verbatim}
+
+        \item Obtener el total de ganancias que se han obtenido por año y mes de todos los pedidos realizados.
+        
+            \begin{verbatim}
+SELECT DATENAME(YYYY,fechaPedido) Año, DATENAME(MM,fechaPedido) Mes,
+       COUNT(Pedidos.idPedido) NúmeroDePedidos, SUM(precioUnitario) Total
+FROM Pedidos INNER JOIN DetallesPedido 
+ON Pedidos.idPedido = DetallesPedido.idPedido
+GROUP BY DATENAME(YYYY,fechaPedido), DATENAME(MM,fechaPedido)
+ORDER BY Año, Mes;
+            \end{verbatim}
+
+    \end{enumerate}
+
+    \section*{Conclusión}
+    La práctica de esta semana estuvo sencilla pues, comprendimos de mejor manera cómo se comporta el lenguaje
+    T-SQL, pues al principio no sabíamos con exactitud como combinar las funciones GROUP BY y HAVING ni cómo organizar bien las tablas,
+    pero al final lo logramos entender bien. \vspace{.3cm}
+
+    En conclusión, las funciones GROUP BY y HAVING nos ayudan a simplicar datos al momento de obtener una tabla resultante
+    por medio de uan consulta y con esto el objetivo de la práctica es alcanzado de manera existosa.
+\end{document}

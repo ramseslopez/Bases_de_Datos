@@ -1,0 +1,8 @@
+industria/resources/HolaMundo.class
+industria/resources/DisqueraResource.class
+industria/respository/DAODisquera.class
+industria/config/DBConfig.class
+industria/model/Disquera.class
+industria/Application.class
+industria/model/Mensaje.class
+industria/respository/impl/DAODisqueraImpl.class

@@ -1,0 +1,120 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left = 2.5cm, right = 2.5cm, top = 2.5cm, bottom = 2.5cm]{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{hyperref}
+\graphicspath{{images/}}
+
+\author{Hernández Ferreiro Enrique Ehecatl \\
+        López Soto Ramses Antonio \\
+        Miguel Torres Eric Giovanni \\
+        Quintero Villeda Erik}
+
+\title{Práctica 9 \\
+       {\small Fudamentos de Bases de Datos}}
+
+\date{4 de noviembre de 2019}
+
+\begin{document}
+    \maketitle
+
+    \section*{Introducción}
+        
+        \subsection*{Objetivo}
+        Hacer uso de la sintaxis de consultas en T-SQL para obtener la solución requerida
+
+    \section*{Desarrollo}
+    Las consultas realizadas en T-SQL son las siguientes:
+
+    \begin{itemize}
+        \item[1.] El nombre completo con titulo de cortesía y cantidad de años laborando del 
+                  empleado con más antigüedad.
+
+                  \begin{lstlisting}
+SELECT TOP(1) CONCAT(nombre, ' ', apellido) nombreCompleto, 
+tituloDeCortesia, 
+(YEAR(GETDATE()) - YEAR(fechaContratacion)) aniosLaborados
+FROM Empleados
+ORDER BY fechaContratacion ASC;
+                  \end{lstlisting}
+
+        \item[2.] Id del pedido, fecha de entrega, fecha de envío de los pedidos que
+                  se hayan realizado por un empleado perteneciente al pais 'UK' cuyo
+                  destino es Mexico.
+
+                  \begin{lstlisting}
+SELECT idPedido, fechaEntrega, fechaEnvio
+FROM Pedidos INNER JOIN Empleados
+ON Pedidos.idEmpleado = Empleados.idEmpleado
+WHERE pais = 'UK' AND paisDestinatario = 'Mexico';
+                  \end{lstlisting}
+
+        \item[3.] El nombre completo y la fecha de entrega de los clientes que hayan
+                  solicitado pedidos de productos con la categoría 'Seafood'.
+
+                  \begin{lstlisting}
+SELECT DISTINCT nombreContacto, fechaEntrega
+FROM Clientes INNER JOIN Pedidos
+ON Clientes.idCliente = Pedidos.idCliente
+INNER JOIN DetallesPedido 
+ON Pedidos.idPedido = DetallesPedido.idPedido
+INNER JOIN Productos 
+ON DetallesPedido.idProducto = Productos.idProducto
+INNER JOIN Categorias 
+ON Productos.idCategoria = Categorias.idCategoria
+WHERE nombreCategoria = 'Seafood';
+                  \end{lstlisting}
+
+        \item[4.] Supón que la fecha actual es 1 de Enero de 1998. Encontrar los pedidos
+                  de los productos descontinuados que aún no han llegado (se
+                  considera que un producto no ha llegado si la fecha de entrega del
+                  pedido es mayor a la actual o null).
+
+                  \begin{lstlisting}
+SELECT Pedidos.idPedido Pedido
+FROM Pedidos INNER JOIN DetallesPedido
+ON Pedidos.idPedido = DetallesPedido.idPedido
+INNER JOIN Productos
+ON DetallesPedido.idProducto = Productos.idProducto
+WHERE descontinuado = 1 AND (fechaEntrega > '01-01-1998' OR fechaEntrega = NULL);
+                  \end{lstlisting}
+
+        \item[5.] Todos los productos que hayan sido despachados por los empleados
+                  de la región 'Eastern'.
+
+                  \begin{lstlisting}
+SELECT DISTINCT nombreProducto
+FROM Region INNER JOIN Territorios
+ON Region.idRegion = Territorios.idRegion
+INNER JOIN TerritoriosEmpleado
+ON Territorios.idTerritorio = TerritoriosEmpleado.idTerritorio
+INNER JOIN Empleados 
+ON TerritoriosEmpleado.idEmpleado = Empleados.idEmpleado
+INNER JOIN Pedidos
+ON Empleados.idEmpleado = Pedidos.idEmpleado
+INNER JOIN DetallesPedido 
+ON Pedidos.idPedido = DetallesPedido.idPedido
+INNER JOIN Productos
+ON DetallesPedido.idProducto = Productos.idProducto
+WHERE descripcionRegion = 'Eastern';
+                  \end{lstlisting}
+
+    \end{itemize}
+
+    \section*{Conclusión}
+    Como se puede notar el objetivo de la práctica fue alcanzado. Las consultas resultaron ser más
+    sencillas de lo que parecían.\vspace{.3cm}
+
+    Sólo tuvimos pocos problemas al momento de implementar las consultas, pues al tener que unir
+    varias tablas, nos confundíamos al momento de poner las condiciones para poder juntarlas, pero 
+    no fue un problema de mucha relevancia.\vspace{.3cm}
+
+    En resumen, las consultas fueron resueltas de manera exitosa.
+
+\end{document}

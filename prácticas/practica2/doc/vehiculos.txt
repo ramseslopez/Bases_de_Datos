@@ -1,0 +1,2 @@
+9,999-FBU,9999/99/99,Electrico,9,false
+0,000-FBU,0000/00/00,Gas,0,false

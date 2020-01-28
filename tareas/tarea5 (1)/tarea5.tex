@@ -1,0 +1,798 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left = 2.5cm, right = 2.5cm, top = 2.5cm, bottom = 2.5cm]{geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\graphicspath{{images/}}
+\usepackage{multicol}
+
+\author{Hernández Ferreiro Enrique Ehecatl (315020904) \\
+        López Soto Ramses Antonio (315319974) \\
+        Miguel Torres Eric Giovanni (315230190) \\
+        Quintero Villeda Erik (315199345)}
+
+\title{Tarea 5: Dependencias y Normlización \\
+       {\small Fudamentos de Bases de Datos}}
+
+\date{28 de octubre de 2019}
+
+\begin{document}
+    \maketitle
+
+    \begin{itemize}
+    
+        \item[1.]   Preguntas de repaso
+        \begin{itemize}
+
+            
+                \item[$\bullet$]    ¿Qué es una dependencia funcional y cómo se 
+                                    define? \vspace{.2cm}
+                
+                                    \begin{itemize}
+
+                                        \item[\textbf{R.}]  Las dependencias funcionales
+                                                            son conexiones entre uno o más 
+                                                            atributos y ayudan a especificar
+                                                            formalmente cuándo un diseño es
+                                                            correcto. 
+
+                                    \end{itemize} 
+
+                \item[$\bullet$]    ¿Para qué sirve el concepto de \textbf{dependencia} en la 
+                                    normalización?
+
+                                    \begin{itemize}
+                                    
+                                        \item[\textbf{R.}]  La dependencia (funcional) se usa
+                                                            principalmente para dar un significado
+                                                            a las tablas y para definir
+                                                            restricciones sobre ellas. 
+                                          
+                                    \end{itemize}
+
+                \item[$\bullet$]    Sea $A$ una llave $R(A,B,C)$. Indica \textbf{todas} las 
+                                    dependencias funcionales que implica \textbf{$A$}.
+
+                                    \begin{itemize}
+
+                                        \item[\textbf{R.}]  $A \rightarrow B$ \hspace{.5cm} 
+                                                            $A \rightarrow C$ \hspace{.5cm} 
+                                                            $A \rightarrow BC$
+                                    
+                                    \end{itemize}
+
+                \item[$\bullet$]    ¿Qué es una forma normal? ¿Cuál es el objetivo de normalizar 
+                                    un modelo de datos?
+
+                                    \begin{itemize}
+
+                                        \item[\textbf{R.}] Las formas normales son las encargadas 
+                                                           de proporcionar los criterior para determinar
+                                                           qué tan vulnerable es una tabla a inconsitencias
+                                                           y anomalías. \vspace{.3cm}
+
+                                                           Y el objetivo principal de la normalización
+                                                           es evitar la redundancia de datos, pues se
+                                                           podrías presentar anomalias en la modificación
+                                                           de dichos datos.
+                                    
+                                    \end{itemize}
+
+                \item[$\bullet$]    ¿En qué casos es preferible lograr \textbf{3NF} en vez de 
+                                    \textbf{BCNF}?
+
+                                    \begin{itemize}
+
+                                        \item[\textbf{R.}] Si se desea desea preservar información
+                                                           de una tabla anterior y/o preservar la 
+                                                           dependencia de la relación, es preferible
+                                                           obtener la 3NF. 
+                                    
+                                    \end{itemize}
+
+            \end{itemize}
+        \newpage
+        \item[2.]   Proporciona \textbf{algunos ejemplos} que demuestran que las 
+                    siguientes reglas \textbf{no} son válidos.
+
+            \begin{itemize}
+                
+                \item[\textbf{a.}]  Si $A \rightarrow B$, 
+                                    entonces $B \rightarrow A$
+                                
+                                \begin{multicols}{2}
+                                    
+                                    $A \rightarrow B$
+                                        \begin{tabular}{| l | c | }
+                                            \hline
+                                            $A$ & $B$ \\
+                                            \hline 
+                                            $a_{1}$ & $b_{1}$ \\
+                                            $a_{2}$ & $b_{1}$ \\
+                                            $a_{3}$ & $b_{2}$ \\
+                                            $a_{4}$ & $b_{2}$ \\
+                                            \hline
+                                        \end{tabular}
+                                        
+                                        $B \nrightarrow A$
+                                        \begin{tabular}{| l | c | }
+                                            \hline
+                                            $B$ & $A$ \\
+                                            \hline 
+                                            $b_{1}$ & $a_{1}$ \\
+                                            $b_{1}$ & $a_{2}$ \\
+                                            $b_{2}$ & $a_{3}$ \\
+                                            $b_{2}$ & $a_{4}$ \\
+                                            \hline
+                                        \end{tabular}
+
+                                \end{multicols}
+
+            \item[\textbf{b.}]  Si $AB \rightarrow C$, 
+                                    entonces $A \rightarrow C$ 
+                                    y $B \rightarrow C$ 
+
+                                        
+                                \begin{multicols}{3}
+
+                                    $AB\rightarrow C$
+                                        \begin{tabular}{| l | c | r |}
+                                            \hline
+                                            $A$ & $B$ & $C$\\
+                                            \hline 
+                                            $a_{1}$ & $b_{1}$ & $c_{1}$ \\
+                                            $a_{2}$ & $b_{2}$ & $c_{2}$ \\
+                                            $a_{1}$ & $b_{2}$ & $c_{3}$ \\
+                                            $a_{2}$ & $b_{1}$ & $c_{4}$ \\
+                                            \hline
+                                        \end{tabular}
+                                    
+                                    $A \nrightarrow C$
+                                        \begin{tabular}{| l | c | }
+                                            \hline
+                                            $A$ & $C$ \\
+                                            \hline 
+                                            $a_{1}$ & $c_{1}$ \\
+                                            $a_{2}$ & $c_{2}$ \\
+                                            $a_{1}$ & $c_{3}$ \\
+                                            $a_{2}$ & $c_{4}$ \\
+                                            \hline
+                                        \end{tabular}
+
+                                        $B \nrightarrow C$    
+                                        \begin{tabular}{| l | c | }
+                                            \hline
+                                            $B$ & $C$ \\
+                                            \hline 
+                                            $b_{1}$ & $c_{1}$ \\
+                                            $b_{2}$ & $c_{2}$ \\
+                                            $b_{2}$ & $c_{3}$ \\
+                                            $b_{1}$ & $c_{4}$ \\
+                                            \hline
+                                        \end{tabular}
+
+                                \end{multicols}
+                                
+
+            \item[\textbf{c.}]  Si $A \twoheadrightarrow C$, 
+                                entonces $A \rightarrow C$
+
+                                \begin{multicols}{2}
+                                    
+                                    $A \twoheadrightarrow C$
+                                        \begin{tabular}{| l | c | r |}
+                                            \hline
+                                            $A$ & $B$ &$C$ \\
+                                            \hline 
+                                            $a_{1}$ & $b_{1}$ & $c_{1}$ \\
+                                            $a_{1}$ & $b_{1}$ & $c_{2}$ \\
+                                            $a_{2}$ & $b_{2}$ & $c_{3}$ \\
+                                            $a_{2}$ & $b_{2}$ & $c_{4}$ \\
+                                            \hline
+                                        \end{tabular}
+                                        
+                                        $A \nrightarrow C$
+                                        \begin{tabular}{| l | c | r |}
+                                            \hline
+                                            $A$ & $B$ & $C$ \\
+                                            \hline 
+                                            $a_{1}$ & $b_{1}$ & $c_{1}$ \\
+                                            $a_{1}$ & $b_{1}$ & $c_{2}$ \\
+                                            $a_{2}$ & $b_{2}$& $c_{3}$ \\
+                                            $a_{2}$ & $b_{2}$ & $c_{4}$ \\
+                                            \hline
+                                        \end{tabular}
+
+                                \end{multicols}
+
+                                
+            \end{itemize} \vspace{.3cm}
+        
+        \item[3.]   Para cada uno de los esquemas que se muestran a continuación:
+
+            \begin{itemize}
+
+                \item[\textbf{a.}]  $R(A,B,C,D,E)$ con $F = \{AB\rightarrow CD, 
+                                    E \rightarrow C, D \rightarrow B\}$
+
+                    \begin{itemize}
+
+                        \item[$\bullet$]    Especifica de ser posible \textbf{dos 
+                                            DF no triviales} que se puedan derivar 
+                                            de las dependencias funcionales dadas.
+
+                                            \begin{center}
+                                                $AB \rightarrow CD$ \hspace{.5cm} $E \rightarrow C$
+                                            \end{center}
+
+                        \item[$\bullet$]    Indica alguna \textbf{llave candidata} 
+                                            para \textbf{R}. 
+
+                                            \begin{center}
+                                                $ABE$
+                                            \end{center}
+
+                        \item[$\bullet$]    Especifica \textbf{todas las violaciones} 
+                                            a la \textbf{BCF}.
+
+                                            \begin{center}
+                                                $AB \rightarrow CD$ \hspace{.5cm} $E \rightarrow C$ 
+                                                \hspace{.5cm} $D \rightarrow B$
+                                            \end{center}
+
+                        \item[$\bullet$]    \textbf{Normaliza} de acuerdo a 
+                                            \textbf{BCNF}, asegúrate de indicar 
+                                            cuáles son las relaciones
+                                            resultantes con sus respectivas 
+                                            dependencias funcionales. \vspace{.3cm}
+
+                                            Primero buscamos una llave para $R$ calculando la cerradura 
+                                            de cada miembro de $F$. \vspace{.1cm}
+
+                                            $\{AB\}^+=\{ABCD\}$ \hspace{.5cm} $\{E\}^+=\{EC\}$ 
+                                            \hspace{.5cm} $\{D\}^+=\{DB\}$\vspace{.3cm}
+
+                                            Al no haber una llave que cubra todos los elementos de $R$, significa que 
+                                            todas las dependencias funcionales son violaciones.\vspace{.3cm}
+                                            
+                                            Elegimos la violación $E \rightarrow D$: $\{E\}^+=\{ED\}$\vspace{.3cm}
+                                            
+                                            Dividimos $R$: \vspace{.2cm}
+
+                                            $R_{1}(E,D)$ con \framebox{$E \rightarrow D$} \checkmark  $\Leftarrow$ \textit{ya está en BCNF} \vspace{.1cm}
+
+                                            $R_{2}(A,B,C,E)$ con $\{AB \rightarrow CD, D \rightarrow B\}$ $\oslash$ \vspace{.3cm}
+
+                                            $\{AB \rightarrow CD, D \rightarrow B\}$ son violaciones para $R_{2}$.\vspace{.3cm}
+
+                                            Elegimos la violación $D \rightarrow B$: $\{D\}^+=\{DB\}$.\vspace{.3cm}
+
+                                            Dividimos $R_{2}$:\vspace{.2cm}
+
+                                            $R_{3}(D,B)$ con \framebox{$D \rightarrow B$} \checkmark $\Leftarrow$ \textit{ya está en BCNF} \vspace{.1cm}
+
+                                            $R_{4}(A,C,D)$ con $\{AB \rightarrow CD\}$ $\oslash$\vspace{.3cm}
+
+                                            $\{AB \rightarrow CD\}$ es violación para $R_{4}$ \vspace{.3cm}
+
+                                            Elegimos la violación $\{AB \rightarrow CD\}$: $\{AB\}^+=\{ABCD\}$\vspace{.3cm}
+
+                                            Dividimos $R_{4}$\vspace{.2cm}
+
+                                            $R_{5}(A,B,C,D)$ con \framebox{$AB \rightarrow CD$} \checkmark $\Leftarrow$ \textit{ya está en BCNF} \vspace{.1cm}
+
+                                            $R_{6}(A,B)$ con \framebox{$AB \rightarrow AB$} \checkmark $\Leftarrow$ \textit{ya está en BCNF}
+
+                    \end{itemize} \vspace{.3cm}
+
+                \item[\textbf{b.}]  $R(A,B,C,D,E)$ con $F = \{AB\rightarrow C, 
+                                    DE \rightarrow C, B \rightarrow D\}$
+
+                    \begin{itemize}
+                        
+                        \item[$\bullet$]    Especifica de ser posible \textbf{dos 
+                                            DF no triviales} que se puedan derivar 
+                                            de las dependencias funcionales dadas.
+
+                                            \begin{center}
+                                                $AB \rightarrow C$ \hspace{.5cm} $DE \rightarrow C$
+                                            \end{center}
+
+                        \item[$\bullet$]    Indica alguna \textbf{llave candidata} 
+                                            para \textbf{R}.
+
+                                            \begin{center}
+                                                $ABE$
+                                            \end{center}
+
+                        \item[$\bullet$]    Especifica \textbf{todas las violaciones} 
+                                            a la \textbf{BCF}.
+
+                                            \begin{center}
+                                                $AB \rightarrow C$ \hspace{.5cm} $DE \rightarrow C$ \hspace{.5cm} $B \rightarrow D$
+                                            \end{center}
+
+                        \item[$\bullet$]    \textbf{Normaliza} de acuerdo a 
+                                            \textbf{BCNF}, asegúrate de indicar 
+                                            cuáles son las relaciones
+                                            resultantes con sus respectivas 
+                                            dependencias funcionales. \vspace{.3cm}
+
+                                            Primero buscamos una llave para $R$ calculando la cerradura 
+                                            de cada miembro de $F$. \vspace{.1cm}
+
+                                            $\{AB\}^+=\{ABC\}$ \hspace{.5cm} $\{DE\}^+=\{DEC\}$ \hspace{.5cm} $\{B\}^+=\{BD\}$\vspace{.3cm}
+
+                                            Al no haber una llave que cubra todos los elementos de $R$, significa que 
+                                            todas las dependencias funcionales son violaciones.\vspace{.3cm}
+
+                                            Elegimos la violación $AB \rightarrow C$: $\{AB\}^+=\{ABC\}$\vspace{.3cm}
+
+                                            Dividimos $R$: \vspace{.2cm}
+
+                                            $R_{1}(A,B,C)$ con \framebox{$AB \rightarrow C$} \checkmark $\Leftarrow$ \textit{ya está en BCNF} \vspace{.1cm}
+
+                                            $R_{2}(D,E,A,B)$ con $\{DE \rightarrow C, B \rightarrow D\}$ $\oslash$ \vspace{.3cm}
+
+                                            $\{DE \rightarrow C, B \rightarrow D\}$ son violaciones para $R_{2}$ \vspace{.3cm}
+
+                                            Elegimos la violación $DE \rightarrow C$: $\{DE\}^+=\{DEC\}$ \vspace{.3cm}
+
+                                            Dividimos $R_{2}$: \vspace{.2cm}
+
+                                            $R_{3}(D,E,C)$ con \framebox{$DE \rightarrow C$} \checkmark $\Leftarrow$ \textit{ya está en BCNF} \vspace{.1cm}
+
+                                            $R_{4}(A,B,D,E)$ con $\{B \rightarrow D\}$ $\oslash$ \vspace{.3cm}
+
+                                            $\{B \rightarrow D\}$ es una violación para $R_{4}$.
+
+                                            Elegimos la violación $B \rightarrow D$: $\{B\}^+=\{BD\}$. \vspace{.3cm}
+
+                                            Dividimos $R_{4}$: \vspace{.2cm}
+
+                                            $R_{5}(B,D)$ con \framebox{$B \rightarrow D$} \checkmark $\Leftarrow$ \textit{ya está en BCNF} \vspace{.1cm}
+
+                                            $R_{6}(A,E,B)$ con \framebox{$AEB \rightarrow AEB$} \checkmark $\Leftarrow$ \textit{ya está en BCNF}
+
+                    \end{itemize}
+
+            \end{itemize}
+            
+        \item[4.]   Para cada una de las siguientes relaciones con su respectivo 
+                    conjunto de dependencias funcionales
+
+            \begin{itemize}
+
+                \item[\textbf{a.}]  $R(A,B,C,D,E,F)$ con $F = \{B \rightarrow D, 
+                                    B \rightarrow E, D \rightarrow F,
+                                    AB \rightarrow C\}$
+                
+                    \begin{itemize}
+
+                        \item[$\bullet$] Indica \textbf{todas las violaciones} a 
+                                        la \textbf{3NF} \vspace{.1cm}
+
+                                        \begin{center}
+                                            $B \rightarrow D$ \hspace{.5cm} $D\rightarrow F$
+                                        \end{center}
+
+                                        pues tendríamos $B \rightarrow F$ $\oslash$ \vspace{.2cm}
+                         
+                        \item[$\bullet$] \textbf{Normaliza} de acuerdo a la 
+                                        \textbf{3NF} \vspace{.3cm}
+
+                                        Notemos que $F=\{B \rightarrow DE, D\rightarrow F, AB\rightarrow C\}$ \textit{(regla de unión)} \vspace{.3cm}
+
+                                        Verificamos si $F$ tiene superfluos.\vspace{.2cm}
+
+                                        \begin{itemize}
+
+                                            \item[a)] Superfluos por la izquierda: $AB\rightarrow C$
+                                             
+                                                      \begin{enumerate}
+
+                                                          \item[] ¿$A$ es superfluo? \vspace{.1cm}
+                                                           
+                                                                  Tenemos $B \rightarrow C$ $\Rightarrow$ $\{B\}^+=\{BDE\}$ \vspace{.1cm}
+
+                                                                  Notemos que $C$ no aparece en $\{B\}+$ $\therefore$ $A$ no es superfluo. \vspace{.2cm}
+
+                                                          \item[] ¿$B$ es superfluo? \vspace{.1cm}
+                                                                    
+                                                                  Tenemos $A \rightarrow C$ $\Rightarrow$ $\{A\}^+=\{A\}$ \vspace{.1cm}
+
+                                                                  Notemos que $C$ no aparece en $\{A\}+$ $\therefore$ $B$ no es superfluo.\vspace{.3cm}
+
+                                                      \end{enumerate} 
+
+                                            \item[b)] Superfluos por la derecha: $B \rightarrow DE$
+                                            
+                                                      \begin{enumerate}
+                                                          \item[] ¿$D$ es superfluo? \vspace{.1cm}
+                                                           
+                                                                  Tenemos $B \rightarrow E$ $\Rightarrow$ $\{B\}^+=\{BE\}$ \vspace{.1cm}
+
+                                                                  Notemos que $D$ no parece en $\{B\}^+$ $\therefore$ $D$ no es superfluo. \vspace{.2cm}
+
+                                                          \item[] ¿$E$ es superfluo? \vspace{.1cm}
+                                                          
+                                                                  Tenemos $B \rightarrow D$ $\Rightarrow$ $\{B\}^+=\{BDF\}$ \vspace{.1cm}
+
+                                                                  Notemos que $E$ no aparece en $\{B\}^+$ $\therefore$ $E$ no es superfluo.\vspace{.3cm}
+
+                                                      \end{enumerate}
+                                             
+                                        \end{itemize}
+                         
+                                        Entonces, $F_{min}=\{B \rightarrow DE, D\rightarrow F, AB \rightarrow C\}$.\vspace{.3cm}
+
+                                        Tenemos las siguientes relaciones: \vspace{.1cm}
+
+                                        $S(B,D,E)$ \hspace{.5cm} $T(D,F)$ \hspace{.5cm} $U(A,B,C)$ \vspace{.3cm}
+
+                                        Ahora calculamos las llaves:\vspace{.1cm}
+
+                                        $\{B\}^+=\{BDE\}$ \hspace{.5cm} $\{D\}^+=\{DF\}$ \hspace{.5cm} $\{AB\}^+=\{ABCDEF\}$\vspace{.1cm}
+
+                                        $\therefore$ $AB$ es una llave para $R$.\vspace{.3cm}
+
+                                        Así, \framebox{$R_{1}(B,D,E)$, \hspace{.3cm} $R_{2}(D,F)$, \hspace{.3cm} $R_{3}(A,B,C)$} \checkmark $\Leftarrow$ \textit{ya está en 3NF}
+
+                    \end{itemize}\vspace{.3cm}
+
+                \item[\textbf{b.}]   $R(A,B,C,D,E)$ con $F = \{A \rightarrow BC,
+                                     B \rightarrow D, CD \rightarrow E,
+                                     E \rightarrow A\}$
+
+                    \begin{itemize}
+
+                        \item[$\bullet$] Indica \textbf{todas las violaciones} a 
+                                        la \textbf{3NF} \vspace{.1cm}
+
+                                        \begin{center}
+                                            $CD \rightarrow E $ \hspace{.5cm} $E \rightarrow A$
+                                        \end{center}
+
+                                        pues tendríamos $CD \rightarrow A$ $\oslash$ \vspace{.2cm}
+                         
+                        \item[$\bullet$] \textbf{Normaliza} de acuerdo a la 
+                                        \textbf{3NF}\vspace{.3cm}
+
+                                        Verificamos si $F$ tiene superfluos.
+
+                                        \begin{itemize}
+                                            \item[a)] Superfluos por la izquierda: $CD \rightarrow E$
+                                            
+                                                      \begin{enumerate}
+
+                                                          \item[] ¿$C$ es superfluo?\vspace{.1cm}
+                                                           
+                                                                  Tenemos $D \rightarrow E$ $\Rightarrow$ $\{D\}^+=\{DE\}$ $\therefore$ $C$ es superfluo.\vspace{.2cm}
+
+                                                      \end{enumerate}
+
+                                                      Entonces, $F'=\{A\rightarrow BC, B\rightarrow D, D \rightarrow E, E\rightarrow A\}$ \vspace{.2cm}
+
+                                            \item[b)] Superfluos por la derecha: $A \rightarrow BC$
+                                            
+                                                      \begin{enumerate}
+
+                                                          \item[] ¿$B$ es superfluo? \vspace{.1cm}
+                                                          
+                                                                  Tenemos $A\rightarrow C$ $\Rightarrow$ $\{A\}^+=\{AC\}$ \vspace{.1cm}
+
+                                                                  Notemos que $B$ no aparece en $\{A\}^+$ $\therefore$ $B$ no es superfluo. \vspace{.2cm}
+
+                                                          \item[] ¿$C$ es superfluo? \vspace{.1cm}
+                                                          
+                                                                  Tenemos $A \rightarrow B$ $\Rightarrow$ $\{A\}^+=\{ABDE\}$ \vspace{.1cm}
+
+                                                                  Notemos que $C$ no aparece en $\{A\}^+$ $\therefore$ $C$ no es superfluo.
+                                                            
+                                                      \end{enumerate}
+
+                                        \end{itemize}\vspace{.3cm}
+                                    
+                                    Entonces $F_{min}=\{A\rightarrow BC,B\rightarrow D, D\rightarrow E,E\rightarrow A\}$ \vspace{.3cm}
+
+                                    Tenemos las siguientes relaciones: \vspace{.1cm}
+
+                                    $S(A,B,C)$ \hspace{.5cm} $T(B,D)$ \hspace{.5cm} $U(D,E)$ \hspace{.5cm} $V(E,A)$ \vspace{.3cm}
+
+                                    Ahora calculamos las llaves:\vspace{.1cm}
+
+                                    $\{A\}^+=\{ABCDE\}$ \hspace{.5cm} $\{B\}^+=\{BD\}$ \hspace{.5cm} $\{D\}^+=\{DE\}$ \hspace{.5cm} $\{E\}^+=\{EA\}$ \vspace{.1cm}
+
+                                    $\therefore$ $A$ es una llave para $R$. \vspace{.3cm}
+
+                                    Así, \framebox{$R_{1}(A,B,C), \hspace{.3cm} R_{3}(B,D), \hspace{.3cm} R_{3}(D,E), \hspace{.3cm} R_{4}(E,A)$} $\leftarrow$ \textit{ya está en 3NF}
+                         
+                    \end{itemize}
+                 
+            \end{itemize} \vspace{.3cm}
+           
+        \item[5.]   Sea el esquema:\vspace{.2cm}
+         
+                    $R(A,B,C,D,E,F)$ con $F = \{BD \rightarrow E,
+                     CD \rightarrow A, E \rightarrow C, B\rightarrow D\}$
+                
+                \begin{itemize}
+
+                    \item[$\bullet$]    ¿Qué puedes decir de $\{A\}^+$ y $\{F\}^+$? \vspace{.1cm}
+                    
+                                        No tenemos $\{A\}^+$, $\{F\}^+$ pues no tenemos a $A$ del
+                                        lado izquierda de ninguna de las DF, y $F$ ni siquiera aparece.\vspace{.2cm}
+
+                    \item[$\bullet$]    Calcula $\{B\}^+$, ¿qué puedes decir de 
+                                        esta cerradura? \vspace{.1cm}
+                                        
+                                        $\{B\}^+=\{BDECA\}$, cubre casi todos los elementos de $R$, pues falta $F$. Además genera lo mismo que $\{BD\}^+$ \vspace{.2cm}
+
+                    \item[$\bullet$]    Obtén todas las llaves candidatas.
+                    
+                                        \begin{center}
+                                            $BF$    
+                                        \end{center}
+
+                    \item[$\bullet$]    ¿$R$ cumple con \textbf{BCNF}? ¿Cumple 
+                                        con \textbf{3NF}? (en caso contrario 
+                                        normaliza).
+
+                                        Verificamos si $F$ tiene superfluos.\vspace{.2cm}
+
+                                        \begin{itemize}
+                                            \item[a)] Superfluos por la izquierda: $BD\rightarrow E,CD\rightarrow A$\vspace{.2cm}
+                                            
+                                                     \textbf{3NF}\vspace{.2cm}
+
+                                                      ¿$B$ es superfluo?\vspace{.1cm}
+
+                                                      Tenemos $D\rightarrow E$ $\Rightarrow$ $\{D\}^+=\{DE\}$, $\therefore$ $B$ es superfluo.\vspace{.2cm}
+
+                                                      Entonces $F'=\{D \rightarrow E, CD \rightarrow A, E \rightarrow C, B\rightarrow D\}$\vspace{.3cm}
+
+                                                      ¿$C$ es superfluo?\vspace{.1cm}
+
+                                                      Tenemos $D\rightarrow A$ $\Rightarrow$ $\{D\}^+=\{DA\}$ $\therefore$ $C$ es superfluo.\vspace{.2cm}
+
+                                                      Entonces $F''=\{D \rightarrow E,
+                                                      D \rightarrow A, E \rightarrow C, B\rightarrow D\}$\vspace{.3cm}
+
+                                                      $\therefore$ $F_{min}=\{D \rightarrow EA, E \rightarrow C, B\rightarrow D\}$\vspace{.3cm}
+
+                                                      Tenemos las siguientes relaciones:\vspace{.1cm}
+
+                                                      $S(D,E,A)$ \hspace{.5cm} $T(E,C)$ \hspace{.5cm} $U(B,D)$ \vspace{.3cm}
+
+                                                      Ahora calculamos su llaves:\vspace{.1cm}
+
+                                                      $\{D\}^+=\{DEAC\}$ \hspace{.5cm} $\{E\}^+=\{EC\}$ \hspace{.5cm} $\{B\}^+=\{BD\}$\vspace{.3cm}
+
+                                                      Agregamos una relación más para que sea la llave de $R$: $V(B,F)$. \vspace{.3cm}
+
+                                                      Así, \framebox{$R_{1}(D,E,A)$ \hspace{.5cm} $R_{2}(E,C)$ \hspace{.5cm} $R_{3}(B,D)$ \hspace{.5cm} $R_{4}(B,F)$} $\Rightarrow$ \textit{ya está en 3NF}\vspace{.3cm}
+
+                                                        \newpage
+                                                      \textbf{BCNF} \vspace{.2cm}
+
+                                                      Buscamos una llave para $R$ calculando la cerradura de cada miembro.\vspace{.1cm}
+
+                                                      $\{BD\}^+=\{BDECA\}$ \hspace{.5cm} $\{CD\}^+=\{CDA\}$ \hspace{.5cm} $\{E\}^+=\{EC\}$ \hspace{.5cm} $\{B\}^+=\{BDECA\}$.\vspace{.3cm}
+
+                                                      Al no haber una llave que cubra todos los elementos de $R$, todas las dependencias funcionales son violaciones.\vspace{.3cm}
+
+                                                      Elegimos una violación: $E\rightarrow C$\vspace{.3cm}
+
+                                                      Dividimos $R$:\vspace{.2cm}
+
+                                                      $R_{1}(E,C)$ con \framebox{$E\rightarrow C$} \checkmark $\Leftarrow$ \textit{ya está en BCNF}\vspace{.1cm}
+
+                                                      $R_{2}(A,B,D,F,E)$ con $\{BD\rightarrow E, CD \rightarrow A, B\rightarrow D\}$ $\oslash$\vspace{.3cm}
+
+                                                      Elegimos la violación $CD \rightarrow E$: $\{CD\}^+=\{CDA\}$.\vspace{.2cm}
+
+                                                      Dividimos $R_{2}$:\vspace{.1cm}
+
+                                                      $R_{3}(C,D,A)$ con \framebox{$BD\rightarrow E$} \checkmark $\leftrightarrow$ \textit{ya está en BCNF}\vspace{.1cm}
+
+                                                      $R_{4}(B,F,E,C,D)$ con $\{BD \rightarrow E, B \rightarrow D\}$ $\oslash$ \vspace{.3cm}
+
+                                                      Elegimos la violación $B\rightarrow D$: $\{B\}^+=\{BDECA\}$\vspace{.2cm}
+
+                                                      Dividimos $R_{4}$:\vspace{.1cm}
+
+                                                      $R_{5}(B,D)$ con \framebox{$B \rightarrow D$} \checkmark $\Leftarrow$ \textit{ya está en BCNF}\vspace{.1cm}
+
+                                                      $R_{6}(B,F)$ con $BD \rightarrow E$ $\oslash$\vspace{.3cm}
+
+                                                      Elegimos la violación $BD\rightarrow E$: $\{BD\}^+=\{BDECA\}$\vspace{.2cm}
+
+                                                      Dividimos $R_{6}$:\vspace{.1cm}
+                                                      
+                                                      $R_{7}(B,D,E)$ con \framebox{$BD\rightarrow E$} \checkmark $\Leftarrow$ \textit{ya está en BCNF} \vspace{.1cm}
+
+                                                      $R_{8}(B,D,F)$ con \framebox{$BDF \rightarrow BDF$} \checkmark $\Leftarrow$ \textit{ya está en BCNF}\vspace{.3cm} 
+
+                                            
+                                        \end{itemize}
+
+                    \item[$\bullet$]    Se ha decidido dividir $R$ en las 
+                                        siguientes relaciones $S(A,B,C,D,F)$ y 
+                                        $T(C,E)$, ¿se puede recuperar la información de $R$?   
+                \end{itemize}
+
+            
+        \item[6.]   Para cada uno de los esquemas, con su respectivo conjunto 
+                    de dependencias multivaluadas, resuelve los siguientes 
+                    puntos:
+                
+                \begin{itemize}
+                    \item[\textbf{a.}]  $R(A,B,C,D)$ con $DMV = \{AB \twoheadrightarrow C
+                                        ,B \rightarrow D\}$
+                     
+                        \begin{itemize}
+
+                            \item[$\bullet$]    Encuentra todas las violaciones 
+                                                a la \textbf{4NF}. \vspace{.1cm}
+
+                                                \begin{center}
+                                                    $B \rightarrow D$
+                                                \end{center}
+
+                            \item[$\bullet$]    Normaliza de acuerdo a la 
+                                                \textbf{4NF}. \vspace{.3cm}
+
+                                                Buscamos una llave para $R$: \vspace{.1cm}
+
+                                                $\{B\}^+=\{BD\}$ $\therefore$ $B \therefore D$ es una violación. \vspace{.3cm}
+
+                                                Elegimos la violación: $B \rightarrow D$ y dividimos $R$. \vspace{.1cm}
+
+                                                $S(B,D)$ con \framebox{$B \rightarrow D$} \checkmark %$\Leftarrow$ \textit{es trivial y no viola la 4NF} \vspace{.1cm}
+
+                                                $T(A,B,C)$ con \textbf{$AB \twoheadrightarrow C$} \checkmark %$\Leftarrow$ \textit{es trivial y no viola la 4NF} \vspace{.3cm}
+
+                                                Así $S(B,D)$ y $T(A,B,C)$ ya están normalizadas. \vspace{.3cm}
+
+                        \end{itemize} 
+
+                    \item[\textbf{b.}]  $R(A,B,C,D,E)$ con $DMV = \{A \twoheadrightarrow B
+                                        ,AB \rightarrow C,A \rightarrow D,AB \rightarrow E\}$
+                                        
+                        \begin{itemize}
+
+                            \item[$\bullet$]    Encuentra todas las violaciones 
+                                                a la \textbf{4NF}. \vspace{.1cm}
+
+                                                \begin{center}
+                                                    $A \rightarrow D$
+                                                \end{center}
+
+                            \item[$\bullet$]    Normaliza de acuerdo a la 
+                                                \textbf{4NF}. \vspace{.3cm}
+
+                                                Notése que $DMV=\{A \twoheadrightarrow B,AB \rightarrow CE,A \rightarrow D\}$\vspace{.3cm}
+
+                                                Elegimos la violación $A \rightarrow D$ y dividimos $R$. \vspace{.1cm}
+
+                                                $S(A,D)$ con \framebox{$A\rightarrow D$} \checkmark \vspace{.1cm}
+
+                                                $T(A,B,C,E)$ con $\{A \twoheadrightarrow B, AB \rightarrow CE\}$ $\oslash$ \vspace{.3cm}
+
+                                                Ahora tomamos $A \twoheadrightarrow B$: \vspace{.1cm}
+                                                
+                                                $U(A,B)$ con \framebox{$A \twoheadrightarrow B$} \checkmark\vspace{.1cm}
+
+                                                $V(A,B,C,E)$ con \framebox{$AB \rightarrow CE$} \checkmark \vspace{.3cm}
+
+                                                Asi, $S(A,D)$, $U(A,B)$ y $V(A,B,C,E)$ ya están normalzadas.
+                                                
+                        \end{itemize}
+                     
+                \end{itemize}
+         
+        \item[7.]   Se tiene la siguiente relación:
+        
+                    \begin{center}
+                        $R(idEnfermo,idCirujano,fechaCirugia,nombreEnfermo,$ \\
+                        $direccionEnfermo,nombreCirujano,nombreCirugia,$ \\
+                        $medicinaSuministrada,efectosSecundarios)$\vspace{.2cm}
+
+                        $R(E,C,F,N,D,B,G,M,S)$\vspace{.2cm}
+
+                        $E:=idEnfermo \hspace{.5cm} C:=idCirujano \hspace{.5cm} F:=fechaCirugia \hspace{.5cm} N:=nombreEnfermo$ \\
+                        
+                        $D:=direccionEnfermo \hspace{.5cm} B:=nombreCirujano \hspace{.5cm} G:=nombreCirugia$ \\
+
+                        $M:=medicinaSuministrada \hspace{.5cm} S:=efectosSecundarios$
+
+
+                    \end{center}
+
+                \begin{itemize}
+
+                    \item[$\bullet$]    Expresa las siguientes restricciones es 
+                                        forma de \textbf{dependencias funcionales}. 
+                                        \vspace{.2cm}
+                            
+                                        \textit{"A un enfermo se le da una 
+                                        medicina después de la operación. 
+                                        Si existen efectos secundarios, 
+                                        éstos dependen sólo de la medicina 
+                                        suministrada. Sólo puede existir un 
+                                        efecto secundario por medicamento."} \vspace{.3cm}
+
+                                        $CBFG \rightarrow MEN \hspace{.5cm} M \twoheadrightarrow S \hspace{.5cm} M\rightarrow S$
+
+
+                    \item[$\bullet$]    Especifica otras \textbf{otras dependencias 
+                                        funcionales o multivaluadas} que deban 
+                                        satisfacerse en la relación $R$. Por 
+                                        cada una que definas, deberá aparecer 
+                                        \textbf{un enunciado en español} como 
+                                        en el inciso anterior. \vspace{.3cm}
+
+                                        \textit{"Un cirujano puede operar a más de un paciente"} \vspace{.2cm}
+
+                                        $CB \twoheadrightarrow E$\vspace{.3cm}
+
+                                        \textit{"Para programar una operaración, el enfermo debe pertenecer al sector correspondiente"}\vspace{.2cm}
+
+                                        $END \rightarrow FG$\vspace{.3cm}
+
+                                        \textit{"Las cirugías puedes causar efectos secundarios"}\vspace{.2cm}
+
+                                        $G \twoheadrightarrow S$\vspace{.3cm}
+
+                    \item[$\bullet$]    \textbf{Normaliza} utilizando el conjunto 
+                                        de dependencias establecido en puntos 
+                                        anteriores. \vspace{.3cm}
+                                        
+                                        $R(E,C,F,N,D,B,G,M,S)$ con \\ $F=\{CBFG \rightarrow MEN,M \twoheadrightarrow S,M\rightarrow S,CB \twoheadrightarrow E,END \rightarrow FG,G \twoheadrightarrow S\}$\vspace{.3cm}
+
+                                        Buscamos llave para $R$:\vspace{.3cm}
+
+                                        $\{CBFG\}^+=\{CBFGMENS\}$ \hspace{.5cm} $\{END\}^+=\{ENDFG\}$ \hspace{.5cm} $\{M\}^+=\{MS\}$\vspace{.2cm}
+
+                                        Una llave para $R$ es $\{CBFG\}$.\vspace{.3cm}
+
+                                        Elegimos la violación $M \rightarrow S$ y dividimos R.\vspace{.1cm}
+
+                                        $S(M,S)$ con $M\rightarrow S, M\twoheadrightarrow S$ \checkmark \vspace{.1cm}
+
+                                        $T(M,E,C,F,N,D,B,G)$ con $\{CBFG\rightarrow MEN, CB\twoheadrightarrow E,END\rightarrow FG, G\twoheadrightarrow S\}$ $\oslash$\vspace{.3cm}
+
+                                        Elegimos la violación $END \rightarrow FG$ y dividimos $T$.\vspace{.1cm}
+
+                                        $U(E,N,D,F,G)$ con $END \rightarrow FG$ \checkmark\vspace{.1cm}
+
+                                        $V(E,N,D,M,B,C)$ con $\{CBFG\rightarrow MEN, CB \rightarrow E, G\twoheadrightarrow S\}$\vspace{.3cm} $\oslash$\vspace{.3cm}
+
+                                        Elegimos la violación $CB \rightarrow E$ y dividimos $V$ \vspace{.1cm}
+
+                                        $W(C,B,E)$ con $CB\rightarrow E$ \checkmark \vspace{.1cm}
+
+                                        $X(C,B,N,D,M)$ con $\{CBFG \rightarrow E, G\twoheadrightarrow S\}$\vspace{.3cm}
+                                        
+                                        Dividimos:\vspace{.1cm}
+
+                                        $Y(G,S)$ con $G\twoheadrightarrow S$ \checkmark \vspace{.1cm}
+
+                                        $Z(G,C,B,N,D,M)$ con $\{CBFG\rightarrow E\}$ $\oslash$\vspace{.3cm}
+
+                                        Dividimos por ultima vez:\vspace{.1cm}
+
+                                        $A(C,B,F,G,E)$ con $CBFG\rightarrow E$ \checkmark \vspace{.3cm}
+
+                                        $\therefore$ \framebox{$R_{1}(M,S)$ \hspace{.5cm} $R_{2}(C,B,E)$ \hspace{.5cm} $R_{3}(E.N.D.F.G)$ \hspace{.5cm} $R_{4}(G,S)$ \hspace{.5cm} $R_{5}(C,B,F,G,E)$} ya están nomralizadas.
+
+
+                \end{itemize}
+
+    \end{itemize}
+
+\end{document}

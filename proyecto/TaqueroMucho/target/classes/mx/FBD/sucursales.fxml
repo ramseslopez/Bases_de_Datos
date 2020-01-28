@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.FBD.ControladorSucursal">
+   <children>
+      <TreeTableView layoutX="14.0" layoutY="36.0" prefHeight="329.0" prefWidth="573.0">
+        <columns>
+          <TreeTableColumn fx:id="rfc" prefWidth="75.0" text="RFC" />
+          <TreeTableColumn fx:id="calle" prefWidth="97.0" text="Calle" />
+            <TreeTableColumn fx:id="numero" prefWidth="74.0" text="Numero" />
+            <TreeTableColumn fx:id="colonia" prefWidth="74.0" text="Colonia" />
+            <TreeTableColumn fx:id="alcaldia" prefWidth="88.0" text="Alcaldia" />
+            <TreeTableColumn fx:id="cp" prefWidth="87.0" text="CP" />
+            <TreeTableColumn fx:id="telefono" prefWidth="77.0" text="Telefono" />
+        </columns>
+      </TreeTableView>
+      <Button fx:id="regresar" layoutX="262.0" layoutY="371.0" mnemonicParsing="false" onAction="#IrInicio" text="Regresar" />
+      <Label layoutX="203.0" layoutY="7.0" text="Nuestras Taquerias">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="logo" fitHeight="26.0" fitWidth="35.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logo.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

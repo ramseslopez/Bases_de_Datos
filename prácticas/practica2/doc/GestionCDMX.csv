@@ -1,0 +1,22 @@
+ID,SIM,Fecha,Combustible,0,true
+9,999-FBU,9999/99/99,Electrico,9,false
+0,000-FBU,0000/00/00,Gas,0,false
+9,999-FBU,9999/99/99,Electrico,9,false
+0,000-FBU,0000/00/00,Gas,0,false
+9,999-FBU,9999/99/99,Electrico,9,false
+0,000-FBU,0000/00/00,Gas,0,false
+3,333-EEE,3333/33/33,Disel,33,true
+"",,,,,,,
+Nombre,Direccion,Linea,Tipo,Horario,Disponibilidad,Accesibilidad,T.Espera
+Rosario,Azcapo,7,Metro,6am-12am,Disponible,Subterranea,15min
+CU,CU,3,Metro,6-12am,disponible,,3min
+"",,,
+Numero de Sito,Direccion,Telefono,Disponibilidad
+55,aca cerca,4567873458,0
+55,Coyoacan,55356783,4
+33,WallMart,45678902,1
+"",,,,,
+Nombre,Nacimiento,Direccion,Genero,Estudios,Horario
+Eric,1999/02(/23,Coyuya,Masculino,Lic,6-6
+Link,1998/10/30,Mixcoas,Masculino,Lic,6-6
+Eric,1999/02(/23,Coyuya,Masculino,Lic,6-6
